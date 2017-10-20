@@ -75,24 +75,41 @@ public abstract class NoteADT implements Comparable<NoteADT>
 	{
 		//TODO: must provide the code here for this constructor
 		char[] arr = strNote.toLowerCase().toCharArray();
+		String	note	= "";
+		int		octave	= 0;
 		
-		int col = 0;
-		int row = 0;
 		
 		for(int i = 0; i < arr.length; i++) {
-			
-			switch(arr[i]) {
-				case 'c':
-					col = 0;
-					break;
-					
-				case 'd':
-					col = 1;
-					break;
-					
-				case 'e':
-					col =
+			if (arr[i] >='0' && arr[i] <= '9') {
+				octave = Character.getNumericValue(arr[i]);
+			} else  if (arr[i] != '-'){
+				note += arr[i];
+			} else if(arr[i+1] != '1') {
+				throw new InvalidNoteException("Hey punk");
+			} else {
+				octave = -1;
+				break;
 			}
+		}
+		
+		
+		if(note.contains("c")) midiNoteValue = 0;
+		else if(note.contains("d"))	midiNoteValue = 2;
+		else if(note.contains("e"))	midiNoteValue = 4;
+		else if(note.contains("f"))	midiNoteValue = 5;
+		else if(note.contains("g"))	midiNoteValue = 7;
+		else if(note.contains("a"))	midiNoteValue = 9;
+		else if(note.contains("b"))	midiNoteValue = 11;
+		
+		
+		if (note.contains("#"))		midiNoteValue += 1;
+		
+		//System.out.println(octave);
+		midiNoteValue = midiNoteValue + ((octave+1) * 12);
+		
+		if (midiNoteValue > HIGH_MIDI_ABSOLUTE_NUMBER || midiNoteValue < LOW_MIDI_ABSOLUTE_NUMBER) {
+			midiNoteValue = -1;
+			throw new InvalidNoteException("Hey punk");
 		}
 	}
 
