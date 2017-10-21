@@ -3,27 +3,22 @@ package util;
 import exceptions.InvalidNoteException;
 
 public class Note extends NoteADT {
-	public Note(String strNote) throws InvalidNoteException {super(strNote);}
-	public Note(int semitones) throws InvalidNoteException {super(semitones);}
-	public Note(double frequency) throws InvalidNoteException {super(frequency);}
+	public Note(String strNote) throws InvalidNoteException		{super(strNote);}
+	public Note(int semitones) throws InvalidNoteException		{super(semitones);}
+	public Note(double frequency) throws InvalidNoteException	{super(frequency);}
 
 	
 	
 	@Override
 	public double getFrequency() {
 		// FIXME:This is just NOT working for whatever reason
-		
-		double a = 440;
-		double b = Math.pow(2d, (midiNoteValue - 69)/12);
-		System.out.println(b);
-		
-		return a * b;
+		return (HZ_CONCERT_PITCH/32d) * Math.pow(2d, (midiNoteValue - 9d)/12d);
 	}
 
 	@Override
 	public int getSemitones() {
 		// TODO Auto-generated method stub
-		return 0;
+		return MIDI_CONCERT_PITCH - midiNoteValue;
 	}
 
 	@Override
@@ -49,14 +44,8 @@ public class Note extends NoteADT {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	public static void main(String[] args) throws InvalidNoteException {
-		
-		Note n = new Note("a4");
-		
-		System.out.println(n.getMIDIAbsoluteNumber());
-		System.out.println(n.getFrequency());
-		
-	}
 
 }
+
+
+

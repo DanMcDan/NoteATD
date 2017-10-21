@@ -100,6 +100,7 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		else if(note.contains("g"))	midiNoteValue = 7;
 		else if(note.contains("a"))	midiNoteValue = 9;
 		else if(note.contains("b"))	midiNoteValue = 11;
+		else throw new InvalidNoteException("Hey punk");
 		
 		
 		if (note.contains("#"))		midiNoteValue += 1;
