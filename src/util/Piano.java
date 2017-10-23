@@ -28,7 +28,7 @@ public class Piano
     	{
 	       channels[1].noteOn(i, 127);
 	       //sets the instrument to play the note.
-	       channels[1].programChange(12);
+	       channels[1].programChange(6);
 	       System.out.println(i);
 	       try
 	       {

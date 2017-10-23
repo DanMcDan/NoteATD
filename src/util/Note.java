@@ -11,38 +11,37 @@ public class Note extends NoteADT {
 	
 	@Override
 	public double getFrequency() {
-		// FIXME:This is just NOT working for whatever reason
 		return (HZ_CONCERT_PITCH/32d) * Math.pow(2d, (midiNoteValue - 9d)/12d);
 	}
 
 	@Override
 	public int getSemitones() {
-		// TODO Auto-generated method stub
-		return MIDI_CONCERT_PITCH - midiNoteValue;
+		return midiNoteValue - MIDI_CONCERT_PITCH;
 	}
 
 	@Override
 	public int getMIDIAbsoluteNumber() {
-		// TODO Auto-generated method stub
 		return midiNoteValue;
 	}
 
 	@Override
 	public boolean formOctave(NoteADT note) {
-		// TODO Auto-generated method stub
-		return false;
+		return Math.abs(midiNoteValue - note.getMIDIAbsoluteNumber()) == 12;
 	}
 
 	@Override
 	public void modifyBySemitones(int numberOfSemitones) throws InvalidNoteException {
 		// TODO Auto-generated method stub
-		
+		if (midiNoteValue + numberOfSemitones > 127 || midiNoteValue + numberOfSemitones < 0) {
+			throw new InvalidNoteException("Number of semitones produces invalid note");
+		} else {
+			midiNoteValue += numberOfSemitones;
+		}
 	}
 
 	@Override
 	public int compareTo(NoteADT note) {
-		// TODO Auto-generated method stub
-		return 0;
+		return midiNoteValue - note.getMIDIAbsoluteNumber();
 	}
 
 }

@@ -55,9 +55,9 @@ public abstract class NoteADT implements Comparable<NoteADT>
 	{
 		//TODO: must provide the code here for this constructor
 		midiNoteValue = (int) Math.round(((Math.log10(frequency / (HZ_CONCERT_PITCH/32)) / Math.log10(2.0)) * 12)+9);
-		if (midiNoteValue > HIGH_MIDI_ABSOLUTE_NUMBER) {
+		if (midiNoteValue > HIGH_MIDI_ABSOLUTE_NUMBER || midiNoteValue < 0) {
 			midiNoteValue = -1;
-			throw new InvalidNoteException("Hey punk");
+			throw new InvalidNoteException("Frequency out of bounds");
 		}
 	}
 
@@ -67,7 +67,7 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		midiNoteValue = MIDI_CONCERT_PITCH + semitones;
 		if (midiNoteValue > HIGH_MIDI_ABSOLUTE_NUMBER || midiNoteValue < LOW_MIDI_ABSOLUTE_NUMBER) {
 			midiNoteValue = -1;
-			throw new InvalidNoteException("Hey punk");
+			throw new InvalidNoteException("Invalid number of semitones");
 		}
 	}
 
@@ -81,11 +81,15 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		
 		for(int i = 0; i < arr.length; i++) {
 			if (arr[i] >='0' && arr[i] <= '9') {
-				octave = Character.getNumericValue(arr[i]);
+				if (octave == 0) {
+					octave = Character.getNumericValue(arr[i]);
+				} else {
+					throw new InvalidNoteException("Octave does not exist");
+				}
 			} else  if (arr[i] != '-'){
 				note += arr[i];
-			} else if(arr[i+1] != '1') {
-				throw new InvalidNoteException("Hey punk");
+			} else if(i == arr.length-1 || arr[i+1] != '1') {
+				throw new InvalidNoteException("Octave does not exist");
 			} else {
 				octave = -1;
 				break;
@@ -100,7 +104,7 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		else if(note.contains("g"))	midiNoteValue = 7;
 		else if(note.contains("a"))	midiNoteValue = 9;
 		else if(note.contains("b"))	midiNoteValue = 11;
-		else throw new InvalidNoteException("Hey punk");
+		else throw new InvalidNoteException("Note does not exit [a,b,c,d,e,f,g]");
 		
 		
 		if (note.contains("#"))		midiNoteValue += 1;
@@ -110,7 +114,7 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		
 		if (midiNoteValue > HIGH_MIDI_ABSOLUTE_NUMBER || midiNoteValue < LOW_MIDI_ABSOLUTE_NUMBER) {
 			midiNoteValue = -1;
-			throw new InvalidNoteException("Hey punk");
+			throw new InvalidNoteException("Note out of bounds");
 		}
 	}
 
