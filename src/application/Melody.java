@@ -59,7 +59,7 @@ public class Melody {
 			
 	        
 	        mChannel.noteOn(n.getMIDIAbsoluteNumber(), 100);
-	        Thread.sleep(300);
+	        Thread.sleep(500);
 	        mChannel.noteOn(nOctave.getMIDIAbsoluteNumber(), 100);
 	        Thread.sleep(2000);
 	        mChannel.noteOff(n.getMIDIAbsoluteNumber(), 30);
