@@ -2,13 +2,10 @@ package application;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
-
-import exceptions.InvalidNoteException;
 
 public class SongDriver {
 	public static void main(String[] args) {
-		String in = "res/music/sweetchildofmine.txt";//args[0];
+		String in = args[0];//"res/music/sweetchildofmine.txt";
 			try
 			{
 				Song song = new Song(in);

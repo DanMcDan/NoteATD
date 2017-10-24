@@ -51,6 +51,12 @@ public abstract class NoteADT implements Comparable<NoteADT>
    * notes and the InvalidNoteException is raised.
    */
 
+  
+  	/**
+  	 * Public constructor for the Note object
+  	 * @param frequency represents the frequency of the note intended.
+  	 * @throws InvalidNoteException Thrown when the frequency lies out of bounds.
+  	 */
 	public NoteADT(double frequency) throws InvalidNoteException
 	{
 		//TODO: must provide the code here for this constructor
@@ -61,6 +67,11 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		}
 	}
 
+	/**
+	 * Public constructor for the Note object
+	 * @param semitones Represents the number of semitones above or below the concert pitch.
+	 * @throws InvalidNoteException Thrown when the frequency lies out of bounds.
+	 */
 	public NoteADT(int semitones) throws InvalidNoteException
 	{
 		//TODO: must provide the code here for this constructor
@@ -71,6 +82,11 @@ public abstract class NoteADT implements Comparable<NoteADT>
 		}
 	}
 
+	/**
+	 * Public constructor for the Note object
+	 * @param strNote Represents the note in string form.
+	 * @throws InvalidNoteException Thrown when the frequency lies out of bounds.
+	 */
 	public NoteADT(String strNote) throws InvalidNoteException
 	{
 		//TODO: must provide the code here for this constructor

@@ -6,7 +6,6 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
-
 import exceptions.InvalidNoteException;
 import util.Note;
 
@@ -15,13 +14,17 @@ public class Song {
 
 	/**
 	 * Public constructor for the Song object
-	 * @param filePath Represents the path to the 
-	 * @throws FileNotFoundException
+	 * @param filePath Represents the path to the file containing the music text
+	 * @throws FileNotFoundException Thrown when the file can't be found
 	 */
 	public Song(String filePath) throws FileNotFoundException {
 		file = new File(filePath);
 	}
 
+	/**
+	 * Public method for playing song in the specified file.
+	 * @throws IOException
+	 */
 	public void playSong() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		ArrayList<String> songNotes = new ArrayList<String>();
@@ -41,7 +44,7 @@ public class Song {
 			MidiChannel mChannel = midiSynth.getChannels()[1];
 			midiSynth.loadInstrument(midiSynth.getDefaultSoundbank().getInstruments()[0]);
 
-			mChannel.programChange(55);
+			mChannel.programChange(45);
 			for (int i = 0; i < songNotes.size(); i++) {
 
 				int waitLen = songNotes.get(i).endsWith("-") ? 400 : 200;
